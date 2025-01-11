@@ -1,0 +1,62 @@
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:latest # or whatever version 
+    container_name: mealie
+    restart: unless-stopped 
+    ports:
+        - "9925:9000" # 
+    deploy:
+      resources:
+        limits:
+          memory: 1000M # 
+    volumes:
+      - ./data:/app/data/
+      - ./ssl:/app/ssl/
+    environment:
+      # Set Backend ENV Variables Here
+      ALLOW_SIGNUP: "false"
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Los_Angeles
+      BASE_URL: https://whatever.com
+      # Database Settings
+      DB_ENGINE: postgres
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
+      #SMTP Settings
+      SMTP_HOST: some-host.com
+      SMTP_PORT: 587
+      SMTP_USER: some-username
+      SMTP_PASSWORD: some-password
+      SMTP_FROM_NAME: Niles Recipe Server
+      SMTP_FROM_EMAIL: recipes@whatever.com
+      SMTP_AUTH_STRATEGY: TLS
+      #TLS Settings
+      TLS_CERTIFICATE_PATH: /app/ssl/certificate.cer
+      TLS_PRIVATE_KEY_PATH: /app/ssl/certificate-key.key
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    restart: always
+    volumes:
+      - mealie-pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_USER: mealie
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+volumes:
+  mealie-data:
+  mealie-pgdata:
