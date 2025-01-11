@@ -2,7 +2,7 @@
 ## docker-compose.yaml file with instructions on using SSL/TLS
 
 
-You'll need to either use a service like acme.sh or certbot (letsencrypt) OR you'll need to purchase a certificate.
+You'll need to either use a service like **acme.sh** or **certbot** (letsencrypt) OR you'll need to purchase a certificate.
 Using verification methods like email or DNS validation checks will allow you to get a certificate you can use even on an internal IP address.
 
 Create a directory called mealie (or whatever you want to name it)
