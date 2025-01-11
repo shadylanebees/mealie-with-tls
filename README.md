@@ -7,7 +7,7 @@ Using verification methods like email or DNS validation checks will allow you to
 
 Create a folder called mealie (or whatever you want to name it)
 Make a "data" directory and a "ssl" directory. (eg: `mkdir data ;; mkdir ssl`)
-Download the example docker-compose.yaml file, edit it setting the SMTP settings (or comment out) and edit the TLS_CERTIFICATE_PATH and TLS_PRIVATE_KEY_PATH as appropriate
+Download the example docker-compose.yaml file, edit it setting the SMTP settings (or comment out) and edit the `TLS_CERTIFICATE_PATH` and `TLS_PRIVATE_KEY_PATH` as appropriate
 
 ```
 docker-compose pull
