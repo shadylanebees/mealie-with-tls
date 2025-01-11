@@ -62,4 +62,5 @@ services:
       retries: 3
 
 volumes:
+  mealie-data:
   mealie-pgdata:
